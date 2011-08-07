@@ -1,1 +1,6 @@
 A book crawler application based on yakala framework
+
+BUILD:
+------
+* First build yakala framework, unless you have yakala.jar file
+* Copy yakala.jar to root folder of kitap-yakala
