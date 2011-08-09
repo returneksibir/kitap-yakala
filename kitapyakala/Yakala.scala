@@ -8,14 +8,26 @@ import yakala.logging._
 object Yakala {
   def main(args : Array[String]) {
 
-    val url = args(0)
     val logger = new ConsoleLogger()
-    logger.setLogLevel(Logger.LOG_DEBUG)
+    logger.setLogLevel(Logger.LOG_INFO)
 
-    val spiders = List( new PandoraSpider(logger), new ImgeSpider(logger) )
     val pipeline = new GoogleAppEngineBookDB(logger)
-    val crawler = new Crawler(logger)
 
-    args.foreach(crawler ! _)
+    var spiders = List(
+      new PandoraSpider(logger),
+      new IdefixSpider(logger),
+      new ImgeSpider(logger) )
+
+    args.foreach{ domainName =>
+      println(domainName)
+      spiders = spiders.filter{ _.domainName == domainName }
+    }
+
+    val crawler = new Crawler(logger, pipeline)
+    crawler.start
+
+    spiders.foreach{ spider =>
+      spider.start
+      crawler ! (spider, spider.startURL)}
   }
 }
