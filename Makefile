@@ -19,4 +19,4 @@ build:
 	fsc $(FLAGS) $(CP) $(SOURCES)
 
 run:
-	time scala -cp ./yakala.jar:./jsoup-1.6.1.jar:. kitapyakala.Yakala idefix.com
+	time scala -cp ./yakala.jar:./jsoup-1.6.1.jar:. kitapyakala.Yakala idefix.com imge.com.tr

@@ -18,16 +18,17 @@ object Yakala {
       new IdefixSpider(logger),
       new ImgeSpider(logger) )
 
-    args.foreach{ domainName =>
-      println(domainName)
-      spiders = spiders.filter{ _.domainName == domainName }
-    }
-
     val crawler = new Crawler(logger, pipeline)
     crawler.start
 
-    spiders.foreach{ spider =>
-      spider.start
-      crawler ! (spider, spider.startURL)}
+    args.foreach{ domainName =>
+      spiders.foreach{ spider =>
+        if (spider.domainName == domainName)
+        {
+          spider.start
+          crawler ! (spider, spider.startURL)
+        }
+      }
+    }
   }
 }
