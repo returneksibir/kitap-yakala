@@ -5,6 +5,7 @@ SOURCES= \
 	kitapyakala/pipelines/GoogleAppEngineBookDB.scala \
 	kitapyakala/spiders/PandoraSpider.scala \
 	kitapyakala/spiders/IdefixSpider.scala \
+	kitapyakala/spiders/KitapyurduSpider.scala \
 	kitapyakala/spiders/ImgeSpider.scala
 
 CP=-cp .:yakala.jar:jsoup-1.6.1.jar

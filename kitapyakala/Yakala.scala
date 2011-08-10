@@ -16,6 +16,7 @@ object Yakala {
     var spiders = List(
       new PandoraSpider(logger),
       new IdefixSpider(logger),
+      new KitapyurduSpider(logger),
       new ImgeSpider(logger) )
 
     val crawler = new Crawler(logger, pipeline)
