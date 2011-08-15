@@ -8,7 +8,7 @@ import org.jsoup.nodes.Document
 class ImgeSpider(logger : Logger) extends Spider {
   private val DOMAIN_NAME         = "imge.com.tr"
   private val START_URL           = "http://www.imge.com.tr"
-  private val BOOK_PRICE_PATH     = "span.productSpecialPrice"
+  private val BOOK_PRICE_PATH     = "td.price"
   private val BOOK_ISBN_PATH      = "table#ana_alan"
   private val STORE_ID            = 4
   private val BOOK_PAGE_PATTERN   = """.*/product_info\.php\?products_id=(.*)""".r
@@ -22,7 +22,7 @@ class ImgeSpider(logger : Logger) extends Spider {
     logger.info("------- " + title + " -------")
     try {
       val bookPrice = doc.select(BOOK_PRICE_PATH).first().text().trim().replace(",", ".")
-      val PricePattern = """.* (\S+)TL""".r
+      val PricePattern = """(?:.*Sitemizde \(KDV Dahil\): )?(\d+\.\d{2})TL.*""".r
       val PricePattern(price) = bookPrice
       var bookIsbn      = doc.select(BOOK_ISBN_PATH).first().text().trim().replace("-", "")
       val IsbnPattern = """.* ISBN: (\S+) .*""".r
