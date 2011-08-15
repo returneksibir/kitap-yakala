@@ -11,9 +11,9 @@ class PandoraSpider(logger : Logger) extends Spider {
   private val BOOK_PRICE_PATH     = "span.fiyat"
   private val BOOK_ISBN_PATH      = "span#ContentPlaceHolderMainOrta_LabelIsbn"
   private val STORE_ID            = 4
-  private val BOOK_PAGE_PATTERN   = "http://www.pandora.com.tr/urun/"
+  private val BOOK_PAGE_PATTERN   = """.*/urun/(.*)/.*""".r
 
-  def isProductPage(pageUrl : String) : Boolean = { pageUrl.startsWith(BOOK_PAGE_PATTERN) }
+  def productPagePattern()  : util.matching.Regex = BOOK_PAGE_PATTERN
   def domainName()  : String = DOMAIN_NAME
   def startURL()    : String = START_URL
   

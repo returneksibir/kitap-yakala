@@ -11,9 +11,9 @@ class ImgeSpider(logger : Logger) extends Spider {
   private val BOOK_PRICE_PATH     = "span.productSpecialPrice"
   private val BOOK_ISBN_PATH      = "table#ana_alan"
   private val STORE_ID            = 4
-  private val BOOK_PAGE_PATTERN   = "http://www.imge.com.tr/product_info.php?products_id="
+  private val BOOK_PAGE_PATTERN   = """.*/product_info\.php\?products_id=(.*)""".r
 
-  def isProductPage(pageUrl : String) : Boolean = { pageUrl.startsWith(BOOK_PAGE_PATTERN) }
+  def productPagePattern()  : util.matching.Regex = BOOK_PAGE_PATTERN
   def domainName()  : String = DOMAIN_NAME
   def startURL()    : String = START_URL
   

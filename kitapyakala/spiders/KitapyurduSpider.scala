@@ -9,11 +9,11 @@ class KitapyurduSpider(logger : Logger) extends Spider {
   private val DOMAIN_NAME         = "kitapyurdu.com"
   private val START_URL           = "http://www.kitapyurdu.com/kitap/default.asp?id=585237"
   private val STORE_ID            = 3
-  private val BOOK_PAGE_PATTERN   = "http://www.kitapyurdu.com/kitap/default.asp?id="
+  private val BOOK_PAGE_PATTERN   = """.*/kitap/default\.asp\?id=(.*)""".r
   private val BOOK_PRICE_PATTERN  = """.* Kitapyurdu Fiyatı: (\S+).{2}TL\. .*""".r
   private val BOOK_ISBN_PATTERN   = """.* ISBN:(\S+) .*""".r
 
-  def isProductPage(pageUrl : String) : Boolean = { pageUrl.startsWith(BOOK_PAGE_PATTERN) }
+  def productPagePattern()  : util.matching.Regex = BOOK_PAGE_PATTERN
   def domainName()  : String = DOMAIN_NAME
   def startURL()    : String = START_URL
   

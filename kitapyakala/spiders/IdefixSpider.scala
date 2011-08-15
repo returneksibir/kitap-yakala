@@ -11,11 +11,11 @@ class IdefixSpider(logger : Logger) extends Spider {
   private val BOOK_PRICE_PATH     = "b.pricerange"
   private val BOOK_ISBN_PATH      = "div#tanitimbox.disableSelection"
   private val STORE_ID            = 2
-  private val BOOK_PAGE_PATTERN   = "http://www.idefix.com/kitap/"
+  private val BOOK_PAGE_PATTERN   = """.*/kitap/(.*)/tanim\.asp\?sid=.*""".r
   private val BOOK_PRICE_PATTERN  = """.{2}(\S+) TL.*""".r
   private val BOOK_ISBN_PATTERN   = """.* ISBN : (\S+) .*""".r
 
-  def isProductPage(pageUrl : String) : Boolean = { pageUrl.startsWith(BOOK_PAGE_PATTERN) }
+  def productPagePattern()  : util.matching.Regex = BOOK_PAGE_PATTERN
   def domainName()  : String = DOMAIN_NAME
   def startURL()    : String = START_URL
   
