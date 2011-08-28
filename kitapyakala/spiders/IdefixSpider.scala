@@ -23,12 +23,10 @@ class IdefixSpider(logger : Logger) extends Spider {
     val title    = doc.title();
     logger.info("------- " + title + " -------")
     try {
-      val bookPrice = doc.select(BOOK_PRICE_PATH).first().text().trim().replace(",", ".")
-      var bookIsbn  = doc.select(BOOK_ISBN_PATH).first().text().trim().replace("-", "")
-      var BOOK_ISBN_PATTERN(isbn)   = bookIsbn
+      val bookPrice = doc.select(BOOK_PRICE_PATH).first().text().trim()
+      val bookIsbn  = doc.select(BOOK_ISBN_PATH).first().text().trim()
+      val BOOK_ISBN_PATTERN(isbn)   = bookIsbn
       val BOOK_PRICE_PATTERN(price) = bookPrice
-      val len = isbn.length()
-      isbn = if (len < 10) isbn else isbn.substring(len-10, len-1)
       Map("price" ->  price, "isbn"  ->  isbn, "storeID" ->  STORE_ID.toString())
     } catch {
       case e : NullPointerException => throw new Exception("Düzgün biçimli kitap bilgisi bulunamadı.")

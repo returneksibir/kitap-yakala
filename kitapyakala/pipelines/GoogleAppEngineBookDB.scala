@@ -12,7 +12,13 @@ class GoogleAppEngineBookDB(logger : Logger) extends ItemPipeline {
 
   def processItem(item : Map[String, String]) {
     item.foreach{case (key, value) => logger.info(key + "\t:" + value)}
-    val urlParameters = "isbn=" + item("isbn") + "&price=" + item("price") + "&link=" + URLEncoder.encode(item("url"), "UTF-8") + "&store=" + item("storeID");
+
+    val price = item("price").replace(",", ".")
+    var isbn  = item("isbn").replace("-", "")
+    val len = isbn.length()
+    isbn = if (len < 10) isbn else isbn.substring(len-10, len-1)
+
+    val urlParameters = "isbn=" + isbn + "&price=" + price + "&link=" + URLEncoder.encode(item("url"), "UTF-8") + "&store=" + item("storeID");
     val url = BOOK_SERVICE_ADDRESS + "?" + urlParameters
     logger.debug("Connecting to " + url)
     try {

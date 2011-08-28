@@ -22,11 +22,8 @@ class KitapyurduSpider(logger : Logger) extends Spider {
     logger.info("------- " + title + " -------")
     val docText  = doc.text() 
     try {
-      var BOOK_ISBN_PATTERN(isbn)   = docText
-      var BOOK_PRICE_PATTERN(price) = docText
-      price  = price.replace(",", ".")
-      val len = isbn.length()
-      isbn = if (len < 10) isbn else isbn.substring(len-10, len-1)
+      val BOOK_ISBN_PATTERN(isbn)   = docText
+      val BOOK_PRICE_PATTERN(price) = docText
       Map("price" ->  price, "isbn"  ->  isbn, "storeID" ->  STORE_ID.toString())
     } catch {
       case e : NullPointerException => throw new Exception("Düzgün biçimli kitap bilgisi bulunamadı.")
