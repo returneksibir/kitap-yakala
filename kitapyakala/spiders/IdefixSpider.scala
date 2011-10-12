@@ -1,37 +1,18 @@
 package kitapyakala.spiders
 
-import yakala.spiders.Spider
 import yakala.logging.Logger
-import org.jsoup.nodes.Document
 
 
-class IdefixSpider(logger : Logger) extends Spider {
-  private val DOMAIN_NAME         = "idefix.com"
-  private val START_URL           = "http://www.idefix.com/kitap/"
-  private val BOOK_PRICE_PATH     = "b.pricerange"
-  private val BOOK_ISBN_PATH      = "div#tanitimbox.disableSelection"
-  private val STORE_ID            = 2
-  private val BOOK_PAGE_PATTERN   = """.*/kitap/(.*)/tanim\.asp\?sid=.*""".r
-  private val BOOK_PRICE_PATTERN  = """.{2}(\S+) TL.*""".r
-  private val BOOK_ISBN_PATTERN   = """.* ISBN : (\S+) .*""".r
+class IdefixSpider(logger : Logger) extends BaseBookSpider(logger) {
 
-  def productPagePattern()  : util.matching.Regex = BOOK_PAGE_PATTERN
-  def domainName()  : String = DOMAIN_NAME
-  def startURL()    : String = START_URL
+  def domainName()          : String                    = "idefix.com"
+  def startURL()            : String                    = "http://www.idefix.com/kitap/"
+  def productPagePattern()  : util.matching.Regex       = """.*/kitap/(.*)/tanim\.asp\?sid=.*""".r
+  def pricePath()           : String                    = "b.pricerange"
+  def pricePattern()        : scala.util.matching.Regex = """.{2}(\S+) TL.*""".r
+  def isbnPath()            : String                    = "div#tanitimbox.disableSelection"
+  def isbnPattern()         : scala.util.matching.Regex = """.*(?:ISBN : )(\S+).*""".r
+  def storeID()             : Int                       = 2
   
-  def processItem(doc : Document) : Map[String, String] = {
-    val title    = doc.title();
-    logger.info("------- " + title + " -------")
-    try {
-      val bookPrice = doc.select(BOOK_PRICE_PATH).first().text().trim()
-      val bookIsbn  = doc.select(BOOK_ISBN_PATH).first().text().trim()
-      val BOOK_ISBN_PATTERN(isbn)   = bookIsbn
-      val BOOK_PRICE_PATTERN(price) = bookPrice
-      Map("price" ->  price, "isbn"  ->  isbn, "storeID" ->  STORE_ID.toString())
-    } catch {
-      case e : NullPointerException => throw new Exception("Düzgün biçimli kitap bilgisi bulunamadı.")
-      case e : MatchError           => throw new Exception("Price information is not in TL")
-    }
-  }
 }
 
