@@ -14,6 +14,7 @@ class KitapyurduSpider(logger : Logger) extends Spider {
   private val BOOK_ISBN_PATTERN   = """.* ISBN:(\S+) .*""".r
 
   def productPagePattern()  : util.matching.Regex = BOOK_PAGE_PATTERN
+  def followRulePattern()   : util.matching.Regex = """(.*)""".r
   def domainName()  : String = DOMAIN_NAME
   def startURL()    : String = START_URL
   

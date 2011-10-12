@@ -6,6 +6,7 @@ import yakala.logging.Logger
 class ImgeSpider(logger : Logger) extends BaseBookSpider(logger) {
 
   def productPagePattern()  : util.matching.Regex       = """.*/product_info\.php\?products_id=(.*)""".r
+  def followRulePattern()   : util.matching.Regex       = """(.*)""".r
   def domainName()          : String                    = "imge.com.tr"
   def startURL()            : String                    = "http://www.imge.com.tr"
   def pricePath()           : String                    = "td.price"
