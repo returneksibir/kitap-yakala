@@ -17,6 +17,7 @@ object Yakala {
       new PandoraSpider(logger),
       new IdefixSpider(logger),
       new KitapyurduSpider(logger),
+      new IlknoktaSpider(logger),
       new ImgeSpider(logger) )
 
     val crawler = new Crawler(logger, pipeline)
