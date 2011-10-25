@@ -12,6 +12,7 @@ object Yakala {
     logger.setLogLevel(Logger.LOG_INFO)
 
     val pipeline = new GoogleAppEngineBookDB(logger)
+    pipeline.start
 
     var spiders = List(
       new PandoraSpider(logger),
