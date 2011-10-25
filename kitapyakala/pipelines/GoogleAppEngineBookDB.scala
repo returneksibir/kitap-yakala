@@ -10,6 +10,9 @@ class GoogleAppEngineBookDB(logger : Logger) extends ItemPipeline {
   val BOOK_SERVICE_ADDRESS = "http://rimbiskitapsever.appspot.com/book"
   //val BOOK_SERVICE_ADDRESS = "http://localhost:8080/book"
 
+  var numberOfProcessedItems : Long = 0;
+  var numberOfExceptions : Long = 0;
+  
   def processItem(item : Map[String, String]) {
     item.foreach{case (key, value) => logger.info(key + "\t:" + value)}
 
@@ -23,9 +26,18 @@ class GoogleAppEngineBookDB(logger : Logger) extends ItemPipeline {
     logger.debug("Connecting to " + url)
     try {
       Jsoup.connect(url).execute()
+      numberOfProcessedItems += 1
     } catch {
-      case e  => logger.debug("Exception :" + e.getMessage())
+      case e  =>
+        numberOfExceptions += 1
+        logger.debug("Exception :" + e.getMessage())
     }
+  }
+  
+  def printStats(print : String => Unit) {
+    print("\n# messages in mailbox = " + this.mailboxSize)
+    print("\n# processed items = " + numberOfProcessedItems)
+    print("\n# exceptions = " + numberOfExceptions)
   }
 }
 
