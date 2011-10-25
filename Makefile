@@ -13,6 +13,14 @@ SOURCES= \
 CP=-cp .:yakala.jar:jsoup-1.6.1.jar
 FLAGS=-deprecation -unchecked
 
+STORES= \
+	pandora.com.tr \
+	idefix.com \
+	ilknokta.com \
+	kitapyurdu.com \
+	imge.com.tr 
+#	netkitap.com \
+
 all: clean build run
 
 clean:
@@ -22,4 +30,4 @@ build:
 	fsc $(FLAGS) $(CP) $(SOURCES)
 
 run:
-	time scala -cp ./yakala.jar:./jsoup-1.6.1.jar:. kitapyakala.Yakala idefix.com imge.com.tr
+	JAVA_OPTS="-Xms2g -Xmx3g -agentlib:tijmp" time scala -cp ./yakala.jar:./jsoup-1.6.1.jar:. kitapyakala.Yakala $(STORES)
