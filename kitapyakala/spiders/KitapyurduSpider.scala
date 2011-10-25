@@ -7,7 +7,7 @@ import org.jsoup.nodes.Document
 
 class KitapyurduSpider(logger : Logger) extends Spider {
   private val DOMAIN_NAME         = "kitapyurdu.com"
-  private val START_URL           = "http://www.kitapyurdu.com/kitap/default.asp?id=585237"
+  private val START_URL           = "http://www.kitapyurdu.com/"
   private val STORE_ID            = 3
   private val BOOK_PAGE_PATTERN   = """.*/kitap/default\.asp\?id=(.*)""".r
   private val BOOK_PRICE_PATTERN  = """.* Kitapyurdu Fiyatı: (\S+).{2}TL\. .*""".r
