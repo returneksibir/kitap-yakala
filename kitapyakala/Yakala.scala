@@ -4,10 +4,19 @@ import kitapyakala.pipelines._
 import kitapyakala.spiders._
 import yakala.crawler._
 import yakala.logging._
+import yakala.utils._
 import java.util.Timer;
 import java.util.TimerTask;
 
 object Yakala {
+
+  def createVisitedLinkSet() : SetTrait = {
+//  new DefaultLinkSet()
+    val falsePositiveProbability = 0.1
+    val expectedSize = 500000
+    new BloomFilterLinkSet(falsePositiveProbability, expectedSize)
+  }
+
   def main(args : Array[String]) {
 
     val logger = new ConsoleLogger()
@@ -23,7 +32,9 @@ object Yakala {
       new IlknoktaSpider(logger),
       new ImgeSpider(logger) )
 
-    val crawler = new Crawler(logger, pipeline)
+    val visitedLinkSet = createVisitedLinkSet()
+
+    val crawler = new Crawler(logger, pipeline, visitedLinkSet)
     crawler.start
 
     args.foreach{ domainName =>
