@@ -10,7 +10,7 @@ SOURCES= \
 	kitapyakala/spiders/IlknoktaSpider.scala \
 	kitapyakala/spiders/ImgeSpider.scala
 
-CP=-cp .:yakala.jar:jsoup-1.6.1.jar
+CP=-cp lib/*:.
 FLAGS=-deprecation -unchecked
 
 STORES= \
@@ -30,4 +30,4 @@ build:
 	fsc $(FLAGS) $(CP) $(SOURCES)
 
 run:
-	JAVA_OPTS="-Xms2g -Xmx3g -agentlib:tijmp" time scala -cp ./yakala.jar:./jsoup-1.6.1.jar:. kitapyakala.Yakala $(STORES)
+	JAVA_OPTS="-Xms2g -Xmx3g -agentlib:tijmp" time scala $(CP) kitapyakala.Yakala $(STORES)
