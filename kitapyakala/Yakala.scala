@@ -22,8 +22,12 @@ object Yakala {
     val logger = new ConsoleLogger()
     logger.setLogLevel(Logger.LOG_INFO)
 
-    val pipeline = new GoogleAppEngineBookDB(logger)
-    pipeline.start
+    val pipelines = List(
+      new GoogleAppEngineBookDB(logger) )
+
+    pipelines.foreach {
+      pipeline => pipeline.start
+    }
 
     var spiders = List(
       new PandoraSpider(logger),
@@ -34,7 +38,7 @@ object Yakala {
 
     val visitedLinkSet = createVisitedLinkSet()
 
-    val crawler = new Crawler(logger, pipeline, visitedLinkSet)
+    val crawler = new Crawler(logger, pipelines, visitedLinkSet)
     crawler.start
 
     args.foreach{ domainName =>
@@ -50,14 +54,20 @@ object Yakala {
     val task = new TimerTask(){            
       def run(){
         val out = new java.io.FileWriter("Stats.txt")
+
         out write "\n\n--- Crawler ---"
         crawler printStats out.write
+
         out write "\n\n--- Pipeline ---"
-        pipeline printStats out.write
+        pipelines.foreach {
+          pipeline => pipeline printStats out.write
+        }
+
         out write "\n\n--- Spiders ---"
         spiders.foreach{ spider =>
           spider printStats out.write
         }
+
         out write "\n"
         out close
       }
