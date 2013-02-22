@@ -9,10 +9,10 @@ class PandoraSpider(logger : Logger) extends BaseBookSpider(logger) {
   def followRulePattern()   : util.matching.Regex       = """(.*)""".r
   def domainName()          : String                    = "pandora.com.tr"
   def startURL()            : String                    = "http://www.pandora.com.tr"
-  def pricePath()           : String                    = "span.fiyat"
-  def pricePattern()        : scala.util.matching.Regex = """(\S+) TL""".r
-  def isbnPath()            : String                    = "span#ContentPlaceHolderMainOrta_LabelIsbn"
-  def isbnPattern()         : scala.util.matching.Regex = """(.*)""".r
+  def pricePath()           : String                    = "div.etiket"
+  def pricePattern()        : scala.util.matching.Regex = """.* fiyatı: (\S+) TL""".r
+  def isbnPath()            : String                    = "span#CphOrta_LabelIsbn"
+  def isbnPattern()         : scala.util.matching.Regex = """Isbn: (.*)""".r
   def storeID()             : Int                       = 4
   
 }
