@@ -4,7 +4,7 @@ import yakala.pipelines.ItemPipeline
 import yakala.logging.Logger
 import java.net.URLEncoder
 
-class DummyBookDB(logger : Logger) extends ItemPipeline {
+class DummyBookDB(logger : Logger) extends ItemPipeline(logger) {
 
   val BOOK_SERVICE_ADDRESS = "http://rimbiskitapsever.appspot.com/book"
 
