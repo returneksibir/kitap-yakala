@@ -3,6 +3,7 @@ SOURCES= \
 	kitapyakala/Yakala.scala \
 	kitapyakala/pipelines/DummyBookDB.scala \
 	kitapyakala/pipelines/GoogleAppEngineBookDB.scala \
+	kitapyakala/pipelines/MongoDBBookDB.scala \
 	kitapyakala/spiders/BaseBookSpider.scala \
 	kitapyakala/spiders/PandoraSpider.scala \
 	kitapyakala/spiders/IdefixSpider.scala \

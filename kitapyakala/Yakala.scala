@@ -23,7 +23,8 @@ object Yakala {
     logger.setLogLevel(Logger.LOG_INFO)
 
     val pipelines = List(
-      new GoogleAppEngineBookDB(logger) )
+      new DummyBookDB(logger),
+      new MongoDBBookDB("Kitapsever", logger) )
 
     pipelines.foreach {
       pipeline => pipeline.start
