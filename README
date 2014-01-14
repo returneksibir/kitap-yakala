@@ -4,3 +4,12 @@ BUILD:
 ------
 * First build yakala framework, unless you have yakala.jar file
 * Copy yakala.jar to root folder of kitap-yakala
+
+RUN:
+----
+The spiders/ directory under source defines supported spiders.
+Domain name of the spider which intented to be run should be passed as parameter to 'sbt run' command.
+As an example, in order to execute idefix spider, following command should be executed in shell;
+$ sbt run 'idefix.com'
+
+'idefix.com' name is a domain name which is defined in each of the spider. Node that spider could be located under 'spiders' directory of kitap-yakala project source.
